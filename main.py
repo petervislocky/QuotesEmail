@@ -1,10 +1,15 @@
 import pandas as pd
 
-from pathlib import Path
+import traceback
 import random
+from pathlib import Path
+from datetime import datetime
+
 
 import email_handler
 
+
+LOG_FILE = Path(__file__).parent / "error.log"
 BASE_DIR = Path(__file__).parent
 
 def read_spreadsheet(path: Path) -> pd.DataFrame:
@@ -23,4 +28,10 @@ def main():
     email_handler.send_email(message)
 
 if __name__ == "__main__":
-    main()
+    # logging errors in case they occur while console is not visible
+    try:
+        main()
+    except Exception:
+        with open(LOG_FILE, "w") as f:
+            f.write(f"\n ---{datetime.now()} ---\n")
+            f.write(traceback.format_exc())

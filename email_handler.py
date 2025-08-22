@@ -13,6 +13,9 @@ from_email = os.getenv('FROM_EMAIL')
 to_email = os.getenv("TO_EMAIL")
 
 def form_email(quote: str, author: str) -> EmailMessage:
+    """
+    Formats and populates an EmailMessage object to send as an email
+    """
     message = EmailMessage()
     message["Subject"] = "Motivational quote of the day!"
     message["From"] = from_email
@@ -21,6 +24,10 @@ def form_email(quote: str, author: str) -> EmailMessage:
     return message
 
 def send_email(message: EmailMessage) -> None:
+    """
+    Gets credentials for the sender's email address in order to send the email, then sends email.
+    .env file MUST exist and have valid fields (FROM_EMAIL, TO_EMAIL, and PASSWORD) to work
+    """
     password = os.getenv("PASSWORD")
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
