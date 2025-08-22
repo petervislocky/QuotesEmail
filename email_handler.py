@@ -1,10 +1,14 @@
 import smtplib
 import os
+from pathlib import Path
 
 from email.message import EmailMessage
 from dotenv import load_dotenv
 
-load_dotenv()
+
+BASE_DIR = Path(__file__).parent
+
+load_dotenv(BASE_DIR / ".env")
 from_email = os.getenv('FROM_EMAIL')
 to_email = os.getenv("TO_EMAIL")
 
