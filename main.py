@@ -1,5 +1,6 @@
 import pandas as pd
 
+import sys
 import traceback
 import random
 from pathlib import Path
@@ -31,7 +32,9 @@ if __name__ == "__main__":
     # logging errors in case they occur while console is not visible
     try:
         main()
+        sys.exit(0)
     except Exception:
         with open(LOG_FILE, "w") as f:
             f.write(f"\n ---{datetime.now()} ---\n")
             f.write(traceback.format_exc())
+            sys.exit(1)
